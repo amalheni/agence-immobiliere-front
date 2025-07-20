@@ -1,0 +1,124 @@
+/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+/* Custom Colors */
+.bg-realestate {
+  background: linear-gradient(135deg, #1a3a5f, #2c5282);
+}
+
+.text-realestate {
+  color: #2c5282;
+}
+
+.btn-realestate {
+  background-color: #2c5282;
+  color: white;
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn-realestate:hover {
+  background-color: #1a3a5f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Card Enhancements */
+.residence-card {
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.residence-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.residence-card img {
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+/* Badge Styles */
+.badge {
+  padding: 0.5em 0.8em;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+.available { background-color: #d4edda; color: #155724; }
+.sold { background-color: #f8d7da; color: #721c24; }
+.building { background-color: #fff3cd; color: #856404; }
+
+/* Button Styles */
+.btn-location {
+  background-color: #4e73df;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-location:hover {
+  background-color: #2e59d9;
+}
+
+.btn-like {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.btn-like.favorited {
+  background-color: #e83e8c;
+  color: white;
+  border-color: #e83e8c;
+}
+
+/* Search Bar */
+.search-bar input {
+  border-radius: 50px;
+  padding: 12px 20px;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.search-bar input:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+}
+
+/* Favorites Section */
+.favorites-section {
+  background-color: #f1f5f9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-left: 4px solid #2c5282;
+}
+
+/* Responsive Grid */
+@media (min-width: 768px) {
+  .residence-list {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}

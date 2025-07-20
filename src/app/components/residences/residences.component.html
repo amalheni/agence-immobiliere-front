@@ -1,0 +1,92 @@
+<div class="container">
+  <!-- Barre de recherche améliorée -->
+  <div class="search-bar mb-5">
+    <div class="input-group">
+      <span class="input-group-text bg-white border-end-0">
+        <i class="bi bi-search text-muted"></i>
+      </span>
+      <input 
+        type="text" 
+        class="form-control border-start-0" 
+        [(ngModel)]="searchText" 
+        placeholder="Rechercher par adresse..."
+      >
+      <button class="btn btn-realestate" type="button">
+        <i class="bi bi-funnel"></i> Filtrer
+      </button>
+    </div>
+  </div>
+
+  <!-- Liste des résidences -->
+  <div *ngIf="filteredResidences.length > 0; else noResults" class="row g-4 residence-list">
+    <div *ngFor="let residence of filteredResidences" class="col-md-6 col-lg-4">
+      <div class="card h-100 residence-card">
+        <img [src]="residence.image" class="card-img-top" alt="{{residence.name}}">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="card-title h5 mb-0">{{residence.name}}</h3>
+            <span class="badge" [ngClass]="{
+              'available': residence.status === 'Disponible',
+              'sold': residence.status === 'Vendu',
+              'building': residence.status === 'En Construction'
+            }">
+              {{residence.status}}
+            </span>
+          </div>
+          
+          <div class="d-flex justify-content-between mb-3">
+            <div>
+              <i class="bi bi-geo-alt text-muted me-1"></i>
+              <span class="text-muted small">Adresse:</span>
+              <span class="ms-1">{{residence.address}}</span>
+            </div>
+          </div>
+          
+          <div class="d-flex gap-2 mt-4">
+            <button (click)="showLocation(residence)" class="btn-location flex-grow-1">
+              <i class="bi bi-geo me-1"></i> Localisation
+            </button>
+            
+            <button 
+              (click)="toggleFavorite(residence)" 
+              [class.favorited]="isFavorite(residence)"
+              class="btn-like"
+            >
+              <i class="bi" [ngClass]="{'bi-heart-fill': isFavorite(residence), 'bi-heart': !isFavorite(residence)}"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noResults>
+    <div class="text-center py-5">
+      <i class="bi bi-search-heart display-4 text-muted mb-3"></i>
+      <h3 class="h4 text-muted">Aucune résidence trouvée</h3>
+      <p class="text-muted">Essayez de modifier vos critères de recherche</p>
+    </div>
+  </ng-template>
+
+  <!-- Section Favoris -->
+  <div *ngIf="favorites.length > 0" class="favorites-section mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">
+        <i class="bi bi-star-fill text-warning me-2"></i>
+        Vos résidences favorites ({{favorites.length}})
+      </h4>
+      <button class="btn btn-sm btn-outline-secondary">Voir tout</button>
+    </div>
+    
+    <div class="row row-cols-2 row-cols-md-4 g-3 mt-2">
+      <div *ngFor="let fav of favorites" class="col">
+        <div class="card h-100">
+          <img [src]="fav.image" class="card-img-top" height="100" alt="{{fav.name}}">
+          <div class="card-body p-2">
+            <h6 class="card-title mb-0">{{fav.name}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
