@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Apartment } from '../../../core/models/apartment.model';
 import { Residence } from '../../../core/models/residence.model';
 import { ResidenceService } from '../../../core/services/residence.service';
+import { ApartmentService } from '../../../core/services/apartment.service'; // ADDED IMPORT
 
 @Component({
   selector: 'app-add-apartment',
@@ -13,10 +14,13 @@ export class AddApartmentComponent implements OnInit {
   apartForm: FormGroup;
   residences: Residence[] = [];
   newApart: Apartment | null = null;
+  successMessage: string | null = null; // ADDED SUCCESS MESSAGE
+  errorMessage: string | null = null;   // ADDED ERROR MESSAGE
 
   constructor(
     private fb: FormBuilder,
-    private residenceService: ResidenceService
+    private residenceService: ResidenceService,
+    private apartmentService: ApartmentService // INJECTED SERVICE
   ) {
     this.apartForm = this.fb.group({
       apartNum: ['', [Validators.required, this.numberValidator]],
@@ -34,7 +38,6 @@ export class AddApartmentComponent implements OnInit {
       this.residences = residences;
     });
     
-    // Activer/désactiver la validation pour surfaceTerrace
     this.apartForm.get('terrace')?.valueChanges.subscribe(terrace => {
       const surfaceTerraceControl = this.apartForm.get('surfaceTerrace');
       if (terrace) {
@@ -47,16 +50,34 @@ export class AddApartmentComponent implements OnInit {
     });
   }
 
-  // Validateur personnalisé pour vérifier les nombres
   numberValidator(control: AbstractControl): { [key: string]: any } | null {
     return isNaN(control.value) ? { notNumber: true } : null;
   }
 
   onSubmit(): void {
-    if (this.apartForm.valid) {
-      this.newApart = this.apartForm.value;
-      console.log('Nouvel appartement:', this.newApart);
-      // Ici vous enverrez les données au backend
-    }
+  if (this.apartForm.valid) {
+    // Create a new Apartment object from form values
+    const newApartment: Apartment = {
+      ...this.apartForm.value,
+      surfaceTerrace: this.apartForm.value.terrace 
+        ? this.apartForm.value.surfaceTerrace 
+        : null
+    };
+
+    this.apartmentService.addApartment(newApartment).subscribe({
+      next: (addedApartment) => {
+        console.log('Apartment added:', addedApartment);
+        this.successMessage = 'Apartment added successfully!';
+        this.errorMessage = null;
+        this.apartForm.reset();
+        this.newApart = null;
+      },
+      error: (err) => {
+        console.error('Error adding apartment:', err);
+        this.errorMessage = 'Failed to add apartment. Please try again.';
+        this.successMessage = null;
+      }
+    });
   }
+}
 }

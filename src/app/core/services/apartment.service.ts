@@ -19,7 +19,7 @@ export class ApartmentService {
     return this.http.get<Apartment[]>(`${this.apartmentUrl}?residenceId=${residenceId}`);
   }
 
-  addApartment(apartment: Apartment): Observable<Apartment> {
+ addApartment(apartment: Apartment): Observable<Apartment> {
     return this.http.post<Apartment>(this.apartmentUrl, apartment);
   }
 }

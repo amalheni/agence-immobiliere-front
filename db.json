@@ -35,6 +35,16 @@
       "surfaceTerrace": "",
       "category": "S+1",
       "residenceId": 0
+    },
+    {
+      "id": "9729",
+      "apartNum": "88",
+      "floorNum": "55",
+      "surface": 23,
+      "terrace": true,
+      "surfaceTerrace": 44,
+      "category": "S+3",
+      "residenceId": "4"
     }
   ]
 }
