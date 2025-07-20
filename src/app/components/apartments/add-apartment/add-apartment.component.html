@@ -1,1 +1,132 @@
-<p>add-apartment works!</p>
+<div class="container py-5">
+  <h2 class="mb-4">Ajouter un nouvel appartement</h2>
+  
+  <form [formGroup]="apartForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+    <div class="row g-3">
+      <!-- Apartment Number -->
+      <div class="col-md-6">
+        <label for="apartNum" class="form-label">Numéro d'appartement</label>
+        <input 
+          type="text" 
+          id="apartNum" 
+          class="form-control" 
+          formControlName="apartNum"
+          [ngClass]="{ 'is-invalid': apartForm.get('apartNum')?.invalid && (apartForm.get('apartNum')?.dirty || apartForm.get('apartNum')?.touched) }"
+        >
+        <div class="invalid-feedback">
+          <span *ngIf="apartForm.get('apartNum')?.hasError('required')">Ce champ est obligatoire</span>
+          <span *ngIf="apartForm.get('apartNum')?.hasError('notNumber')">Veuillez entrer un nombre</span>
+        </div>
+      </div>
+
+      <!-- Floor Number -->
+      <div class="col-md-6">
+        <label for="floorNum" class="form-label">Numéro d'étage</label>
+        <input 
+          type="text" 
+          id="floorNum" 
+          class="form-control" 
+          formControlName="floorNum"
+          [ngClass]="{ 'is-invalid': apartForm.get('floorNum')?.invalid && (apartForm.get('floorNum')?.dirty || apartForm.get('floorNum')?.touched) }"
+        >
+        <div class="invalid-feedback">
+          <span *ngIf="apartForm.get('floorNum')?.hasError('required')">Ce champ est obligatoire</span>
+          <span *ngIf="apartForm.get('floorNum')?.hasError('notNumber')">Veuillez entrer un nombre</span>
+        </div>
+      </div>
+
+      <!-- Surface -->
+      <div class="col-md-6">
+        <label for="surface" class="form-label">Surface (m²)</label>
+        <input 
+          type="number" 
+          id="surface" 
+          class="form-control" 
+          formControlName="surface"
+          [ngClass]="{ 'is-invalid': apartForm.get('surface')?.invalid && (apartForm.get('surface')?.dirty || apartForm.get('surface')?.touched) }"
+        >
+        <div class="invalid-feedback">
+          <span *ngIf="apartForm.get('surface')?.hasError('required')">Ce champ est obligatoire</span>
+        </div>
+      </div>
+
+      <!-- Terrace -->
+      <div class="col-md-6">
+        <label class="form-label">Terrasse</label>
+        <div class="form-check">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            id="terrace" 
+            formControlName="terrace"
+          >
+          <label class="form-check-label" for="terrace">
+            Oui
+          </label>
+        </div>
+      </div>
+
+      <!-- Surface Terrace (conditionnelle) -->
+      <div class="col-md-6" *ngIf="apartForm.get('terrace')?.value">
+        <label for="surfaceTerrace" class="form-label">Surface de la terrasse (m²)</label>
+        <input 
+          type="number" 
+          id="surfaceTerrace" 
+          class="form-control" 
+          formControlName="surfaceTerrace"
+          [ngClass]="{ 'is-invalid': apartForm.get('surfaceTerrace')?.invalid && (apartForm.get('surfaceTerrace')?.dirty || apartForm.get('surfaceTerrace')?.touched) }"
+        >
+        <div class="invalid-feedback">
+          <span *ngIf="apartForm.get('surfaceTerrace')?.hasError('required')">Ce champ est obligatoire</span>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="col-md-6">
+        <label for="category" class="form-label">Catégorie</label>
+        <select 
+          id="category" 
+          class="form-select" 
+          formControlName="category"
+          [ngClass]="{ 'is-invalid': apartForm.get('category')?.invalid && (apartForm.get('category')?.dirty || apartForm.get('category')?.touched) }"
+        >
+          <option value="">Sélectionner une catégorie</option>
+          <option value="S+1">S+1</option>
+          <option value="S+2">S+2</option>
+          <option value="S+3">S+3</option>
+        </select>
+        <div class="invalid-feedback">
+          <span *ngIf="apartForm.get('category')?.hasError('required')">Ce champ est obligatoire</span>
+        </div>
+      </div>
+
+      <!-- Residence -->
+      <div class="col-md-6">
+        <label for="residenceId" class="form-label">Résidence</label>
+        <select 
+          id="residenceId" 
+          class="form-select" 
+          formControlName="residenceId"
+          [ngClass]="{ 'is-invalid': apartForm.get('residenceId')?.invalid && (apartForm.get('residenceId')?.dirty || apartForm.get('residenceId')?.touched) }"
+        >
+          <option value="">Sélectionner une résidence</option>
+          <option *ngFor="let residence of residences" [value]="residence.id">{{residence.name}}</option>
+        </select>
+        <div class="invalid-feedback">
+          <span *ngIf="apartForm.get('residenceId')?.hasError('required')">Ce champ est obligatoire</span>
+        </div>
+      </div>
+
+      <!-- Bouton Submit -->
+      <div class="col-12 mt-4">
+        <button 
+          type="submit" 
+          class="btn btn-realestate"
+          [disabled]="apartForm.invalid"
+        >
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
