@@ -1,27 +1,46 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, forkJoin } from 'rxjs';
 import { Residence } from '../models/residence.model';
+import { Apartment } from '../models/apartment.model';
+import { switchMap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResidenceService {
-  private residences: Residence[] = [
-    { id: 1, name: "El Felija", address: "Menzah 6", image: "assets/images/R1.jpeg", status: "Disponible" },
-    { id: 2, name: "El Yasmina", address: "inconnu", image: "assets/images/R1.jpeg", status: "Vendu" },
-    { id: 3, name: "El Amal", address: "Centre Ville", image: "assets/images/R1.jpeg", status: "En Construction" },
-    { id: 4, name: "El Manar", address: "Manar 1", image: "assets/images/R1.jpeg", status: "Disponible" }
-  ];
+  private residenceUrl = '/api/residences';
+  private apartmentUrl = '/api/apartments';
 
-  getResidences(): Residence[] {
-    return this.residences;
+  constructor(private http: HttpClient) { }
+
+  getResidences(): Observable<Residence[]> {
+    return this.http.get<Residence[]>(this.residenceUrl);
   }
 
-  getResidence(id: number): Residence {
-    return this.residences.find(r => r.id === id)!;
+  getResidence(id: number): Observable<Residence> {
+    return this.http.get<Residence>(`${this.residenceUrl}/${id}`);
   }
 
-  getNextResidenceId(currentId: number): number {
-    const index = this.residences.findIndex(r => r.id === currentId);
-    return this.residences[(index + 1) % this.residences.length].id;
+  addResidence(residence: Residence): Observable<Residence> {
+    return this.http.post<Residence>(this.residenceUrl, residence);
+  }
+
+  updateResidence(residence: Residence): Observable<Residence> {
+    return this.http.put<Residence>(`${this.residenceUrl}/${residence.id}`, residence);
+  }
+
+  deleteResidence(id: number): Observable<void> {
+    return this.http.get<Apartment[]>(`${this.apartmentUrl}?residenceId=${id}`).pipe(
+      switchMap(apartments => {
+        const deleteRequests = apartments.map(apartment => 
+          this.http.delete(`${this.apartmentUrl}/${apartment.id}`)
+        );
+        return forkJoin(deleteRequests).pipe(
+          switchMap(() => this.http.delete<void>(`${this.residenceUrl}/${id}`))
+        );
+      })
+    );
   }
 }

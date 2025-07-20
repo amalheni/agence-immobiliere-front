@@ -12,12 +12,13 @@ export class HomeComponent {
   featuredResidences: Residence[] = [];
 
   constructor(private residenceService: ResidenceService) {
-    this.residences = this.residenceService.getResidences();
-    this.featuredResidences = this.getFeaturedResidences();
+    this.residenceService.getResidences().subscribe(residences => {
+      this.residences = residences;
+      this.featuredResidences = this.getFeaturedResidences();
+    });
   }
 
   getFeaturedResidences(): Residence[] {
-    // Sélectionne 4 résidences au hasard (ou selon une logique métier)
     return [...this.residences].sort(() => 0.5 - Math.random()).slice(0, 4);
   }
 }

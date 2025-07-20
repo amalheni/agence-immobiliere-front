@@ -1,25 +1,56 @@
-<!-- apartments-by-residence.component.html -->
 <div class="container py-5">
-  <h2 class="mb-4">
-    Appartements de la résidence: {{residence.name}}
-  </h2>
-  
-  <a routerLink="/add-apartment" class="btn btn-success mb-4">
-    <i class="bi bi-plus-circle"></i> Ajouter un appartement
-  </a>
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-3">Chargement en cours...</p>
+  </div>
 
-  <div class="row row-cols-1 row-cols-md-2 g-4">
-    <div *ngFor="let apartment of apartments" class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">Appartement {{apartment.apartNum}}</h5>
-          <p class="card-text">
-            <strong>Étage:</strong> {{apartment.floorNum}}<br>
-            <strong>Surface:</strong> {{apartment.surface}} m²<br>
-            <strong>Terrasse:</strong> {{apartment.terrace ? 'Oui' : 'Non'}}
-          </p>
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button (click)="loadData()" class="btn btn-sm btn-outline-danger ms-3">
+      <i class="bi bi-arrow-repeat"></i> Réessayer
+    </button>
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div *ngIf="residence; else noResidence">
+      <h2 class="mb-4">
+        Appartements de la résidence: {{ residence.name }}
+      </h2>
+      
+      <a routerLink="/add-apartment" class="btn btn-success mb-4">
+        <i class="bi bi-plus-circle"></i> Ajouter un appartement
+      </a>
+
+      <div *ngIf="apartments.length === 0" class="alert alert-info">
+        Aucun appartement trouvé pour cette résidence.
+      </div>
+
+      <div *ngIf="apartments.length > 0" class="row row-cols-1 row-cols-md-2 g-4">
+        <div *ngFor="let apartment of apartments" class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Appartement {{ apartment.apartNum }}</h5>
+              <p class="card-text">
+                <strong>Étage:</strong> {{ apartment.floorNum }}<br>
+                <strong>Surface:</strong> {{ apartment.surface }} m²<br>
+                <strong>Terrasse:</strong> {{ apartment.terrace ? 'Oui' : 'Non' }}
+                <span *ngIf="apartment.terrace">
+                  <br><strong>Surface terrasse:</strong> {{ apartment.surfaceTerrace }} m²
+                </span>
+                <br><strong>Catégorie:</strong> {{ apartment.category }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <ng-template #noResidence>
+      <div class="alert alert-warning">
+        Résidence non trouvée. ID: {{ residenceId }}
+      </div>
+    </ng-template>
   </div>
 </div>

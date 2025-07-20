@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Apartment } from '../../../core/models/apartment.model';
 import { Residence } from '../../../core/models/residence.model';
 import { ResidenceService } from '../../../core/services/residence.service';
@@ -30,7 +30,9 @@ export class AddApartmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.residences = this.residenceService.getResidences();
+    this.residenceService.getResidences().subscribe(residences => {
+      this.residences = residences;
+    });
     
     // Activer/désactiver la validation pour surfaceTerrace
     this.apartForm.get('terrace')?.valueChanges.subscribe(terrace => {
@@ -46,7 +48,7 @@ export class AddApartmentComponent implements OnInit {
   }
 
   // Validateur personnalisé pour vérifier les nombres
-  numberValidator(control: AbstractControl): ValidationErrors | null {
+  numberValidator(control: AbstractControl): { [key: string]: any } | null {
     return isNaN(control.value) ? { notNumber: true } : null;
   }
 
