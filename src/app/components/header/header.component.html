@@ -1,7 +1,7 @@
 <header class="bg-realestate text-white shadow">
   <nav class="navbar navbar-expand-lg navbar-dark container">
     <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="#">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/home">
         <i class="bi bi-house-door me-2"></i>
         <span class="fw-bold">ImmoPro</span>
       </a>
@@ -13,26 +13,20 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Accueil</a>
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Résidences</a>
+            <a class="nav-link" routerLink="/residences" routerLinkActive="active">Résidences</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Appartements</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" routerLink="/apartments" routerLinkActive="active">Appartements</a>
           </li>
         </ul>
         
         <div class="d-flex">
-          <button class="btn btn-outline-light me-2">
-            <i class="bi bi-person"></i> Connexion
-          </button>
-          <button class="btn btn-realestate">
+          <a routerLink="/add-residence" class="btn btn-realestate">
             <i class="bi bi-plus-circle"></i> Ajouter Résidence
-          </button>
+          </a>
         </div>
       </div>
     </div>

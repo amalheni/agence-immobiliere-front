@@ -1,5 +1,11 @@
-<div class="container">
-  <!-- Barre de recherche améliorée -->
+<div class="container py-5">
+  <!-- Titre seulement en mode standalone -->
+  <div *ngIf="isStandalone" class="text-center mb-5">
+    <h1 class="text-realestate fw-bold mb-3">Toutes nos résidences</h1>
+    <p class="lead text-muted">Découvrez notre catalogue complet de résidences</p>
+  </div>
+
+  <!-- Barre de recherche -->
   <div class="search-bar mb-5">
     <div class="input-group">
       <span class="input-group-text bg-white border-end-0">
@@ -43,9 +49,9 @@
           </div>
           
           <div class="d-flex gap-2 mt-4">
-            <button (click)="showLocation(residence)" class="btn-location flex-grow-1">
-              <i class="bi bi-geo me-1"></i> Localisation
-            </button>
+            <a [routerLink]="['/residences', residence.id]" class="btn btn-info flex-grow-1">
+              <i class="bi bi-info-circle me-1"></i> Détails
+            </a>
             
             <button 
               (click)="toggleFavorite(residence)" 

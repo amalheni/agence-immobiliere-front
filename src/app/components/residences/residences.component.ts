@@ -1,42 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Residence } from '../../core/models/residence.model';
+import { ResidenceService } from '../../core/services/residence.service';
 
 @Component({
   selector: 'app-residences',
   templateUrl: './residences.component.html',
   styleUrls: ['./residences.component.css']
 })
-export class ResidencesComponent {
+export class ResidencesComponent implements OnInit {
+  @Input() residences: Residence[] = [];
   searchText: string = '';
   favorites: Residence[] = [];
+  isStandalone: boolean = false;
 
-  // Liste des résidences
-  listResidences: Residence[] = [
-    { 
-      id: 1, 
-      name: "El Felija", 
-      address: "Menzah 6", 
-      image: "assets/images/R1.jpeg", 
-      status: "Disponible" 
-    },
-    { 
-      id: 2, 
-      name: "El Yasmina", 
-      address: "inconnu", 
-      image: "assets/images/R1.jpeg", 
-      status: "Vendu" 
-    },
-    { 
-      id: 3, 
-      name: "El Amal", 
-      address: "Centre Ville", 
-      image: "assets/images/R1.jpeg", 
-      status: "En Construction" 
+  constructor(private residenceService: ResidenceService) { }
+
+  ngOnInit(): void {
+    // Si aucune résidence n'est passée en entrée, charger depuis le service
+    if (!this.residences || this.residences.length === 0) {
+      this.residences = this.residenceService.getResidences();
+      this.isStandalone = true;
     }
-  ];
+  }
 
   get filteredResidences(): Residence[] {
-    return this.listResidences.filter(res => 
+    return this.residences.filter(res => 
       res.address.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
@@ -49,7 +37,6 @@ export class ResidencesComponent {
     }
   }
 
-  // Nouvelle méthode pour vérifier les favoris
   isFavorite(residence: Residence): boolean {
     return this.favorites.some(f => f.id === residence.id);
   }

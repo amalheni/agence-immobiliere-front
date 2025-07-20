@@ -1,0 +1,22 @@
+<!-- apartments.component.html -->
+<div class="container py-5">
+  <h2 class="mb-4">Tous les appartements</h2>
+  
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div *ngFor="let apartment of apartments" class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Appartement {{apartment.apartNum}}</h5>
+          <p class="card-text">
+            <strong>Étage:</strong> {{apartment.floorNum}}<br>
+            <strong>Surface:</strong> {{apartment.surface}} m²<br>
+            <strong>Catégorie:</strong> {{apartment.category}}
+          </p>
+          <a [routerLink]="['/apartments', apartment.residenceId]" class="btn btn-outline-primary">
+            Voir la résidence
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

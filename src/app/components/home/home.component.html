@@ -1,0 +1,86 @@
+<!-- home.component.html -->
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="text-realestate fw-bold mb-3">Bienvenue chez ImmoPro</h1>
+    <p class="lead text-muted">Votre partenaire immobilier premium en Tunisie</p>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+    <!-- Lien vers toutes les résidences -->
+    <div class="col">
+      <a routerLink="/residences" class="card h-100 text-decoration-none text-dark hover-shadow">
+        <div class="card-body text-center py-5">
+          <i class="bi bi-building display-4 text-realestate mb-3"></i>
+          <h3 class="h5">Toutes les résidences</h3>
+          <p class="text-muted small mb-0">Explorez notre catalogue complet</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Lien vers tous les appartements -->
+    <div class="col">
+      <a routerLink="/apartments" class="card h-100 text-decoration-none text-dark hover-shadow">
+        <div class="card-body text-center py-5">
+          <i class="bi bi-house-door display-4 text-realestate mb-3"></i>
+          <h3 class="h5">Tous les appartements</h3>
+          <p class="text-muted small mb-0">Découvrez nos appartements disponibles</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Lien pour ajouter une résidence -->
+    <div class="col">
+      <a routerLink="/add-residence" class="card h-100 text-decoration-none text-dark hover-shadow">
+        <div class="card-body text-center py-5">
+          <i class="bi bi-plus-circle display-4 text-realestate mb-3"></i>
+          <h3 class="h5">Ajouter une résidence</h3>
+          <p class="text-muted small mb-0">Ajoutez une nouvelle résidence à notre catalogue</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Lien pour ajouter un appartement -->
+    <div class="col">
+      <a routerLink="/add-apartment" class="card h-100 text-decoration-none text-dark hover-shadow">
+        <div class="card-body text-center py-5">
+          <i class="bi bi-house-add display-4 text-realestate mb-3"></i>
+          <h3 class="h5">Ajouter un appartement</h3>
+          <p class="text-muted small mb-0">Ajoutez un nouvel appartement à une résidence</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section de résidences en vedette -->
+  <div class="text-center mb-4">
+    <h2 class="text-realestate">Résidences en vedette</h2>
+    <p class="text-muted">Découvrez nos résidences les plus populaires</p>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div *ngFor="let residence of featuredResidences" class="col">
+      <div class="card h-100">
+        <img [src]="residence.image" class="card-img-top" alt="{{residence.name}}" height="180">
+        <div class="card-body">
+          <h3 class="h5">{{residence.name}}</h3>
+          <p class="card-text text-truncate">
+            <i class="bi bi-geo-alt text-muted me-1"></i>
+            {{residence.address}}
+          </p>
+          <div class="d-flex justify-content-between">
+            <span class="badge" [ngClass]="{
+              'available': residence.status === 'Disponible',
+              'sold': residence.status === 'Vendu',
+              'building': residence.status === 'En Construction'
+            }">
+              {{residence.status}}
+            </span>
+            <a [routerLink]="['/residences', residence.id]" class="btn btn-sm btn-outline-realestate">
+              Détails
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
