@@ -54,12 +54,22 @@
           },
           "defaultConfiguration": "production"
         },
+
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "agence-immobiliere-front:build",
             "proxyConfig": "proxy.conf.json"
-          }
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "agence-immobiliere-front:build:production"
+            },
+            "development": {
+              "browserTarget": "agence-immobiliere-front:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

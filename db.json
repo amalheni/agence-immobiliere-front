@@ -1,74 +1,23 @@
 {
   "residences": [
     {
-      "id": 1,
-      "name": "El Felija",
-      "address": "Menzah 6",
-      "image": "assets/images/R1.jpeg",
-      "status": "Disponible"
-    },
-    {
-      "id": 2,
-      "name": "El Yasmina",
-      "address": "inconnu",
-      "image": "assets/images/R1.jpeg",
-      "status": "Vendu"
-    },
-    {
-      "id": 3,
-      "name": "El Amal",
-      "address": "Centre Ville",
-      "image": "assets/images/R1.jpeg",
+      "id": "3",
+      "name": "Vance Glover",
+      "address": "Aut iste tenetur pro",
+      "image": "https://media.gettyimages.com/id/1402855867/fr/photo/new-office-and-residential-area-in-paris-france.jpg?s=612x612&w=gi&k=20&c=YOhTBdWLCsrxZeKNIlM0A-Nsmy_uUefgwNeGOjbyYHw=",
       "status": "En Construction"
     },
     {
-      "id": 4,
-      "name": "El Manar",
-      "address": "Manar 1",
-      "image": "assets/images/R1.jpeg",
-      "status": "Disponible"
-    },
-    {
-      "id": 5,
-      "name": "Sigourney Roy",
-      "address": "Adipisicing ut paria",
+      "id": "4",
+      "name": "Giacomo Cross",
+      "address": "Aute vero mollitia m",
       "image": "https://media.gettyimages.com/id/1402855867/fr/photo/new-office-and-residential-area-in-paris-france.jpg?s=612x612&w=gi&k=20&c=YOhTBdWLCsrxZeKNIlM0A-Nsmy_uUefgwNeGOjbyYHw=",
-      "status": "Vendu"
+      "status": "En Construction"
     }
   ],
   "apartments": [
     {
-      "id": 1,
-      "apartNum": 101,
-      "floorNum": 1,
-      "surface": 120,
-      "terrace": true,
-      "surfaceTerrace": 30,
-      "category": "S+3",
-      "residenceId": 5
-    },
-    {
-      "id": 2,
-      "apartNum": 202,
-      "floorNum": 2,
-      "surface": 90,
-      "terrace": false,
-      "surfaceTerrace": 0,
-      "category": "S+2",
-      "residenceId": 1
-    },
-    {
-      "id": 3,
-      "apartNum": 303,
-      "floorNum": 3,
-      "surface": 150,
-      "terrace": true,
-      "surfaceTerrace": 40,
-      "category": "S+3",
-      "residenceId": 2
-    },
-    {
-      "id": 4,
+      "id": "4",
       "apartNum": 101,
       "floorNum": 1,
       "surface": 80,
@@ -78,7 +27,7 @@
       "residenceId": 3
     },
     {
-      "id": 5,
+      "id": "5",
       "apartNum": "Eum in illo quis vol",
       "floorNum": "Consequat Qui eum n",
       "surface": 58,
